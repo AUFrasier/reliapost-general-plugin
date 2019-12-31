@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+#main {
+    background-color:#0D3151;
+}
+
+#content {
+    background-color:white;
+    color:#0D3151;
+    font-family: 'Muli', sans-serif !important;
+}
+
+#addposttitle {
+    font-family: 'Muli', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #0D3151;
+    font-size: 45px !important;
+    margin-bottom: 0px;
+}
+.edit-button {
+    margin-right:18px;
+}
+
+label {
+    display: inline;
+    margin-bottom: 10px;
+}
+
+.tooltip_icon {
+	display: block;
+	margin: 10px;
+	display: inline;
+}
+
+#tooltip_content {
+	display: none;
+	border: #0D3151 solid 3px;
+	border-radius: 30px;
+	background: #f7b429;
+	margin-top: 10px !important;
+	padding:10px;
+	z-index: 1000;
+	width:100%;
+	height:auto;
+	font-size: 13px;
+	margin: 0 auto;
+}
+
+.source_options {
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+}
+
+#extsource, #intsource {
+	width: 55%;
+	height: 40px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+	margin-top: 20px;
+	font-size: 22px;
+	text-align: center;
+	padding-top: 4px;
+	background-color: #0D3151 !important;
+	display: block;
+	border-radius: 30px;
+	font-family: 'Muli', sans-serif;
+}
+.notification-container {
+	background-color: #0D3151;
+	width: 100%;
+	border: none;
+	outline: none;
+	font-size: 30px;
+	margin: 0 auto;
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 60px;
+}
+
+#category {
+    border-color: #0D3151;
+    border-width: 2px;
+    color: #0D3151;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 5px;
+    height: 40px;
+	display: block;
+	margin-top: 20px !important;
+}
+#postTitle {
+    border-radius: 5px ;
+    padding: 5px;
+    border-color: #0D3151 ; 
+    border-width: 2px ;
+    color: #0D3151 ;
+    font-size: 18px ;
+    margin-bottom: 20px;
+    width: 90%;
+	display: block;
+	margin-top: 20px !important;
+    margin: 0 auto;
+}
+
+#content_field {
+    border-color: #0D3151 ; 
+    border-width: 2px ;
+    color: #0D3151 ;
+    font-size: 18px ;
+    border-radius: 5px ;
+    width: 90%;
+	margin-top: 20px !important;
+    margin: 0 auto;
+	display: block;
+	padding: 5px;
+}
+
+#description {
+    border-color: #0D3151 ; 
+    border-width: 2px ;
+    color: #0D3151 ;
+    font-size: 18px ;
+    border-radius: 5px ;
+    width: 90%;
+	margin-top: 20px !important;
+    margin: 0 auto;
+	display: block;
+	padding: 5px;
+}
+
+#url {
+    border-radius: 5px;
+    padding: 5px;
+    border-color: #0D3151;
+    border-width: 2px;
+    color: #0D3151;
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 90%;
+	display: block;
+	margin-top: 20px !important;
+    margin: 0 auto;
+	
+}
+
+#excerpt {
+    border-color: #0D3151; 
+    border-width: 2px;
+    color: #0D3151;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 90%;
+	display: block;
+	margin-top: 20px !important;
+    margin: 0 auto;
+	padding: 5px;
+}
+
+#addpostbutton, #extsourceButton, #intsourceButton{
+    width:55%;
+    height:40px;
+    margin: 0 auto;
+    margin-top:10px;
+	margin-bottom:10px;
+    font-size:22px;
+    background-color:#0D3151 !important;
+    color:white !important;
+    display: block;
+    border-radius: 30px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Muli', sans-serif;
+}
+
+#addpostbutton:hover {
+    background-color:white !important;
+    color:#0D3151 !important;
+    display: block;
+    border: #0D3151 2px solid;
+}
+
+#post-2266 > div > p {
+    margin-bottom: 50px !important;
+    text-align: center;
+}
+
+.error-hint {
+    color: #8f8a8a !important;
+    min-height: 1.25em;
+    line-height: 1.25;
+}
+
+.add-post-form {
+	display: block;
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 60px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #8f8a8a !important;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #8f8a8a !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #8f8a8a !important;
+}

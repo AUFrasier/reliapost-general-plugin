@@ -1,0 +1,444 @@
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+.row {
+    margin: 0 !important;
+}
+#main {
+    background-color:#0D3151;
+}
+
+#content {
+    background-color:white;
+    color:#0D3151;
+    padding-left:0px;
+    
+}
+
+.error-hint {
+    color:red;
+    min-height: 1.25em;
+    line-height: 1.25;
+}
+
+
+#name-label, #name-label-edit {
+    margin-top: 0px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#account-section {
+    margin-left: 12px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+}
+#name-section {
+    border: #0D3151 2px solid;
+    border-radius: 30px;
+    margin-left: 12px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+.field-container {
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#name-field {
+    border: #0D3151 2px solid;
+    border-radius: 30px;
+    padding: 16px;
+    padding-top: 14px;
+    font-size: 20px;
+    color: #0D3151;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+    font-family: 'Muli';
+    font-weight: 500;
+    letter-spacing: 0px;
+    font-style: normal;
+}
+
+#email-field {
+    border: #0D3151 2px solid;
+    border-radius: 30px;
+    padding: 16px;
+    padding-top: 14px;
+    font-size: 20px;
+    color: #0D3151;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+    font-family: 'Muli';
+    font-weight: 500;
+    letter-spacing: 0px;
+    font-style: normal;
+}
+.save-buttons {
+    width: 100%;
+    margin: 0 auto;
+}
+#password-field, #password-confirm-field {
+    border: #0D3151 2px solid;
+    border-radius: 30px;
+    padding: 16px;
+    padding-top: 14px;
+    font-size: 20px;
+    color: #0D3151;
+    margin-bottom: 20px;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+    font-family: 'Muli';
+    font-weight: 500;
+    letter-spacing: 0px;
+    font-style: normal;
+}
+
+#password-field{
+    margin-bottom: 20px;
+}
+
+#password-field::placeholder, #password-confirm-field::placeholder {
+    color: #0D3151;
+}
+
+#user_name, #user_email, #user_password {
+    font-size: 20px;
+}
+
+#email-label {
+    margin-top: 2px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#email-section {
+    border: #0D3151 2px solid;
+    border-radius: 30px;
+    margin-left: 12px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+#email_name {
+    font-size: 20px;
+}
+
+#password-label {
+    margin-top: 3px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#password-section {
+    border: #0D3151 2px solid;
+    border-radius: 30px;
+    margin-left: 12px;
+    padding-bottom: 4px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+#password_name {
+    font-size: 20px;
+}
+
+#account_title {
+    font-family: 'Muli', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #0D3151;
+    font-size: 45px !important;
+}
+
+.rp_profile_button {
+    width:55%;
+    height:40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    font-size:22px;
+    text-align: center;
+    padding-top: 4px;
+    background-color:#0D3151 !important;
+    color:white !important;
+    display: block;
+    border-radius: 30px;
+    font-family: 'Muli', sans-serif;
+}
+
+.rp_profile_button:hover {
+    width:55%;
+    height:40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    font-size:22px;
+    text-align: center;
+    padding-top: 2px;
+    background-color:white !important;
+    color:#0D3151 !important;
+    display: block;
+    border-radius: 30px;
+    border-color: #0D3151;
+    border-width: 2px;
+    border-style: solid;
+    font-family: 'Muli', sans-serif;
+}
+
+.material-icons:hover {
+    font-size:1.45em;
+    transition: .2s ease-out;
+}
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+#name-edit {
+    margin-left: 12px;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+    margin-top: -2px;
+}
+
+#email-edit {
+    margin-left: 12px;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+    margin-top: -2px;
+}
+
+#password-edit {
+    margin-left: 12px;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    width: 70%;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+    margin-top: -2px;
+}
+#name-editButton, #email-editButton, #password-editButton {
+    width: 90px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 4px;
+    background-color: #0D3151 !important;
+    color: white !important;
+    display: block;
+    border-radius: 30px;
+    font-family: 'Muli', sans-serif;
+}
+
+#cancelbutton, #savebutton {
+    width: 90px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 4px;
+    display: inline-block;
+    border-radius: 30px;
+    font-family: 'Muli', sans-serif;
+}
+
+#cancelbutton {
+    background-color: red !important;
+    color: white !important;
+}
+
+#savebutton {
+    background-color: #f7b429 !important;
+    color: #0D3151 !important;
+}
+/* This CSS is based from w3school -- with modifications */
+
+#categoryAccordian:hover {
+    background-color: #0D3151;
+    color: white;
+}
+
+#categoryAccordian {
+    background-color: #f7b429;
+    color: #0D3151;
+    cursor: pointer;
+    padding: 8px;
+    padding-left: 16px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 30px;
+    margin-bottom: 85px;
+}
+
+#category_content {
+    padding: 0 18px;
+    margin-top: -85px;
+    display: none;
+    overflow: hidden;
+    height: auto;
+    width: 100%;
+    background-color: #0D3151;
+}
+
+/* end w3school-based CSS  */
+
+#categoryName {
+    margin-right: 20px;
+    float: left;
+}
+
+.categoryCheckbox {
+    margin-top: -5px !important;
+}
+
+.fa-angle-down, .fa-angle-up  {
+    float: right;
+    padding-right: 20px;
+    padding-top: 5px;
+}
+
+#categoryLabel {
+    color: white;
+    margin-bottom: 30px;
+}
+
+#category-container {
+    margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#addedCategories {
+    color: white !important;
+}
+
+#categoryName {
+    color: white;
+}
+
+#post-1946 > div > form {
+    margin-bottom: 30px;
+} 
+
+#account-text1 {
+    padding: 30px;
+}
+
+#account-text2, #password-redirect, #email-redirect, #name-redirect, #error-note-email, #error-note-name {
+    padding: 30px;
+    color: white;
+}
+
+#cat-text{
+    padding: 30px;
+}
+
+.activetext, .canceltext, .renewtext, .reactivatetext, .deactivatetext, .contributortext, #password-redirect, #email-redirect, #name-redirect, #error-note-email, #error-note-name {
+    background-color: #0D3151;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 19px;
+}
+
+#password-redirect, #email-redirect, #name-redirect, #error-note-email, #error-note-name {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.trialtext {
+    background-color: #0D3151;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 800px){
+    #content {
+        margin-top: 100px;
+    }
+
+    #main {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .rp_profile_button {
+        width: 85%;
+    }
+
+    #account_title {
+        padding-top: 30px;
+    }
+
+    #account-text1 {
+        padding: 15px;
+    }
+    
+  }
+
+@media screen and (max-width: 505px){
+    #name-readonly, #email-readonly, #password-readonly {
+        display: grid;
+    }
+    #name-edit, #email-edit, #password-edit,#email-section, #password-section, #name-section {
+        width: 90%;
+    }
+    #name-field, #email-field, #password-field, #password-confirm-field {
+        width: 100%;
+        padding: 16px;
+        padding-top: 14px;
+    }
+    #category_content {
+        height: 50vh;
+    }
+  }

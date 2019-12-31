@@ -1,0 +1,127 @@
+
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+
+.form-row {
+    padding: 10px;
+}
+
+.fusion-row {
+    margin: 0 !important;
+}
+
+.login_container {
+    background-image: url("../images/Reliapost_login_back.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.sub_container {
+    /*box-shadow: 15px 5px 19px black !important;*/
+    margin: 0 auto;
+    width: 40%;
+    background: none;
+}
+.forgetmenot {
+    display: inline-flex;
+    padding-top: 5px;
+    text-align: center;
+    color: #0D3151;
+    font-family: 'Muli', sans-serif;
+}
+
+.forgetmenot label {
+    padding: 3px 11px 14px 18px;
+}
+
+.forgotpassword {
+    color: #0D3151;
+    display: block;
+    width: 100%;
+    padding-left: 18px;
+    font-family: 'Muli', sans-serif;
+    padding-bottom: 10px;
+    padding-top: 35px;
+}
+
+#logo {
+    margin: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 190px;
+    padding-top: 20px;
+}
+
+#content {
+    margin-bottom: 0 !important;
+}
+
+#whitebg1 {
+    background-color: white;
+    border-radius: 20px;
+}
+
+#whitebg2 {
+    background-color: white;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
+
+.register_label, .contributor_label {
+    margin-bottom:0px !important;
+    margin-top:20px !important;
+    color: #0D3151 !important;
+    padding-top: 10px;
+    font-size: 22px;
+    font-family: 'Muli', sans-serif;
+}
+
+.login-info {
+    text-align:center;
+    color:#000;
+}
+
+.fusion-layout-column {
+    margin-bottom: 0 !important;
+}
+
+.fusion_builder_column_2_5, .fusion_builder_column_3_5 {
+    margin-right: 0% !important;
+}
+
+.fusion_builder_column_3_5 {
+    background-color: #FAD890;
+}
+
+::placeholder {
+    font-family: 'Muli', sans-serif;
+    color: #0d3151 !important;
+    font-size: 22px;
+    opacity: 1;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 800px){
+    .sub_container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .forgotpassword, .forgetmenot {
+        font-size: 14px;
+    }
+    .register_button {
+        font-size: 17px;
+        padding-top: 6px;
+    }
+    .register_label, .contributor_label {
+        font-size: 18px;
+    }
+}
+  

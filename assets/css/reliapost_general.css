@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+.center_horizontal {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.center_horizontal p {
+    color: #0D3151 !important;
+}
+
+.fusion-row {
+    max-width: 100% !important;
+}
+
+.container {
+    width: 100% !important;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+
+div.center_horizontal:nth-child(7) > p:nth-child(1) {
+    color: #0D3151 !important;
+}
+
+#password-lost-form {
+    color:#0D3151 !important;
+}
+
+#password-lost-text {
+    margin-top: 40px;
+}
+
+#addedCategories {
+    color: white !important;
+}

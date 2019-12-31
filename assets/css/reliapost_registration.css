@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+#user_registration_title {
+    text-align: center;
+    margin-top: 40px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 700;
+    color: #0d3151;
+    letter-spacing: 2px;
+    font-size: 40px;
+}
+
+.registration_container {
+    background-image: url("../images/Reliapost_login_back.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: auto;
+    box-shadow: 15px 5px 19px black;
+    padding: 15px;
+}
+
+#card-errors {
+    height: 20px;
+    padding: 4px 0;
+    color: #fa755a;
+}
+
+.form-row {
+    width: 100%;
+}
+
+form {
+    padding: 15px;
+    height: 100%;
+}
+
+label {
+    font-weight: 600;
+    font-size: 23px;
+    display: block;
+    margin-bottom: 8px;
+    color: #0D3151 !important;
+    padding: 5px;
+}
+
+#card-element {
+    border-radius: 30px ;
+    padding: 9px ;
+    border-color: #0D3151 ;
+    border-width: 2px ;
+    color: #0D3151 ;
+    font-size: 22px ;
+}
+
+#registration-form-container {
+    background-color: white;
+    border-radius: 20px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+#alreadyRegistered, #alreadyRegistered a {
+    font-family: 'Muli', sans-serif;
+    color:#0D3151;
+}
+.secure {
+    font-family: 'Muli', sans-serif;
+    color:#0D3151;
+    font-weight: 700;
+    display: flex;
+    margin: 15px;
+}
+.secure p {
+    padding-left: 10px;
+}
+#alreadyRegistered {
+    font-size: 20px;
+}
+
+#alreadyRegistered a {
+    font-style: oblique;
+    font-size: 18px;
+}
+
+
+.registration-error {
+    text-align:center;
+    color:red;
+    padding-top: 45px;
+}
+
+.signup_button {
+    width:60%;
+    height:40px;
+    margin: 0 auto;
+    margin-top: 40px;
+    font-size:22px;
+    background-color:#0D3151 !important;
+    color:white !important;
+    display: block;
+    border-radius: 30px;
+    border: none;
+    font-family: 'Muli', sans-serif;
+    margin-bottom: 25px;
+
+}
+
+.signup_button:hover {
+    background-color:white !important;
+    color:#0D3151 !important;
+    display: block;
+    border: #0D3151 2px solid;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+    background-color: white;
+    border: 2px; 
+}
+
+#register-text1 {
+    color: #0D3151 !important;
+    text-align: center;
+    padding-top: 45px;
+}
+
+.password-requirements {
+    display: block;
+    margin: 0 auto;
+    width: 85%;
+    margin-bottom: 15px;
+}
+
+.password-requirements li{
+    font-size: 14px;
+    color: #0D3151;
+}
+
+@media screen and (max-width: 800px){
+    #registration-form-container {
+        width: 90%;
+    }
+}
