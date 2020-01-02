@@ -11,8 +11,8 @@ namespace reliapost_registration;
 
 use WP_Error;
 
-class User
-{
+class User {
+
     public $userId;
     public $email;
     public $username;
@@ -28,7 +28,11 @@ class User
     const INVALID_PASSWORD_VERIFICATION = 104;
     const FIRST_NAME_MISSING = 105;
 	const LAST_NAME_MISSING = 106;
-	const USERNAME_MISSING = 107;
+    const USERNAME_MISSING = 107;
+    const BUSINESSNAME_MISSING = 108;
+    const BRANDNAME_MISSING = 109;
+    const INDUSTRYNAME_MISSING = 110;
+    
 
     static function is_error($result) {
         return $result===self::FIRST_NAME_MISSING || 
@@ -38,44 +42,13 @@ class User
         $result===self::ERROR_INVALID_EMAIL || 
         $result===self::INVALID_EMAIL_VERIFICATION || 
         $result===self::INVALID_PASSWORD || 
+        $result===self::BUSINESSNAME_MISSING ||
+        $result===self::BRANDNAME_MISSING ||
+        $result===self::INDUSTRYNAME_MISSING ||
         $result===self::INVALID_PASSWORD_VERIFICATION;
     }
 
-    static function createUser($email, $password, $username, $lastName, $firstName) {
-        $user = self::register_user($email, $password, $username, $lastName, $firstName);
-
-        /*
-        $user = new User();
-        $user->email = $email;
-        $user->password = hash("sha256",$password);
-        $user->updatedAt = current_time("mysql");
-        $user->userId = wp_generate_uuid4();
-
-        $data = array([
-            'user_id' => $user->userId,
-            'email' => $user->email,
-            'password' => $user->password,
-            'updated_at' => $user->updatedAt
-        ]);
-
-        $query = $wpdb->prepare("INSERT INTO " . $dbController->tableUsers
-            . " ("
-            . DatabaseController::USERS_USER_ID . ","
-            . DatabaseController::USERS_EMAIL . ","
-            . DatabaseController::USERS_PASSWORD . ","
-             . DatabaseController::USERS_UPDATED_AT . ") "
-            . "VALUES (%s,%s,%s,%s)"
-        , array($user->userId, $user->email, $user->password, $user->updatedAt));
-
-        $result = $wpdb->query($query);
-
-        self::wp_register_user($email, $password);
-        */
-
-        return $user;
-    }
-
-    static function login($email, $password) {
+    static function registerReliapostUser($userData) { 
         global $wpdb;
         $dbController = new DatabaseController();
 
@@ -103,10 +76,18 @@ class User
      *
      * @return int|User         The the user that was created, or error code if failed.
      */
-    static function register_user($email, $password, $username, $lastName, $firstName, $verifyEmail, $verifyPassword) {
-        Log::addEntry("register_user($email)");
+    static function register_brand_user($email, $password, $username, $lastName, $firstName, $verifyEmail, $verifyPassword, $brandname, $industryname) {
+        Log::addEntry("register_brand_user($email)");
 
         //form validation
+        if(empty($industryname)) {
+			return self::INDUSTRYNAME_MISSING;
+        }
+
+        if(empty($brandname)) {
+			return self::BRANDNAME_MISSING;
+        }
+
         if(empty($firstName)) {
 			return self::FIRST_NAME_MISSING;
         }
@@ -145,9 +126,74 @@ class User
 			return self::INVALID_PASSWORD_VERIFICATION;
         }
 
-		
-        // Save the user's password
-//        $password = wp_hash_password($password);
+        $user_data = array(
+            'user_login'    => $username,
+            'first_name'    => $firstName,
+            'last_name'     => $lastName,
+            'user_email'    => $email,
+            'user_pass'     => $password,
+            'nickname'      => $firstName,
+            'role'          => 'business-user',
+            'user_type'     => 'Business'
+        );
+
+        $user_id = wp_insert_user( $user_data );
+        wp_new_user_notification( $user_id );
+        registerReliapostUser();
+        $user = new User();
+        $user->password = wp_hash_password($password);
+        $user->email = $email;
+        $user->userId = $user_id;
+
+        return $user;
+    }
+
+
+    static function register_business_user($email, $password, $username, $lastName, $firstName, $verifyEmail, $verifyPassword, $businessname) {
+        Log::addEntry("register_business_user($email)");
+
+        //form validation
+        if(empty($businessname)) {
+            return self::BUSINESSNAME_MISSING;
+        }
+
+        if(empty($firstName)) {
+            return self::FIRST_NAME_MISSING;
+        }
+        
+        if(empty($lastName)) {
+            return self::LAST_NAME_MISSING;
+        }
+        
+        if(empty($username)) {
+            return self::USERNAME_MISSING;
+        }
+        
+        if ( ! is_email( $email ) ) {
+            Log::addEntry("invalid email: " . $email);
+            return self::ERROR_INVALID_EMAIL;
+        }
+
+        if ( username_exists( $email ) || email_exists( $email ) ) {
+            Log::addEntry("email already exists: " . $email);
+            return self::ERROR_EMAIL_EXISTS;
+        }
+
+        if($email != $verifyEmail || empty($verifyEmail) ) {
+            return self::INVALID_EMAIL_VERIFICATION;
+        }
+        
+        if(strlen($password) < '8' || 
+        empty($password) || 
+        !preg_match("#[0-9]+#",$password) ||
+        !preg_match("#[A-Z]+#",$password) || 
+        !preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/',$password)) {
+            return self::INVALID_PASSWORD;
+        }
+        
+        if($password != $verifyPassword || empty($verifyPassword)) {
+            return self::INVALID_PASSWORD_VERIFICATION;
+        }
 
         $user_data = array(
             'user_login'    => $username,
@@ -156,6 +202,8 @@ class User
             'user_email'    => $email,
             'user_pass'     => $password,
             'nickname'      => $firstName,
+            'role'          => 'business-user',
+            'user_type'     => 'Business'
         );
 
         $user_id = wp_insert_user( $user_data );
@@ -168,4 +216,5 @@ class User
 
         return $user;
     }
+
 }

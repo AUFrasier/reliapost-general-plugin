@@ -74,6 +74,16 @@ label {
 .secure p {
     padding-left: 10px;
 }
+input[name="plan-type"] {
+    margin-left: 15px;
+}
+input[name="plan-type"] + p {
+    font-family: 'Muli', sans-serif;
+    color:#0D3151;
+    font-weight: 700;
+    display: flex;
+    margin-left: 5px;
+}
 #alreadyRegistered {
     font-size: 20px;
 }

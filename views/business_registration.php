@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: christopherruddell
- * Date: 2/15/18
- * Time: 9:18 PM
- */
+
 namespace reliapost_registration;
 
 function getErrorMessage($code) {
@@ -12,28 +7,29 @@ function getErrorMessage($code) {
     $email = $_POST["email"];
     switch ($code) {
         // Registration errors
-        case RegistrationController::FIRST_NAME_MISSING:
+        case BusinessRegistrationController::FIRST_NAME_MISSING:
             return __( '<p>First name is missing. This field is required.</p>', 'personalize-login' );
-		case RegistrationController::LAST_NAME_MISSING:
+		case BusinessRegistrationController::LAST_NAME_MISSING:
             return __( '<p>Last name is missing. This field is required.</p>', 'personalize-login' );
-		case RegistrationController::USERNAME_MISSING:
+		case BusinessRegistrationController::USERNAME_MISSING:
             return __( '<p>Username is missing. This field is required.</p>', 'personalize-login' );
-        case RegistrationController::INVALID_EMAIL:
+        case BusinessRegistrationController::INVALID_EMAIL:
             return __( '<p>The email address you entered is not valid or is missing.</p>', 'personalize-login' );
-		case RegistrationController::INVALID_EMAIL_VERIFICATION:
+		case BusinessRegistrationController::INVALID_EMAIL_VERIFICATION:
             return __( '<p>Email verification failed. Make sure your emails match.</p>', 'personalize-login' );
-		case RegistrationController::INVALID_PASSWORD:
+		case BusinessRegistrationController::INVALID_PASSWORD:
             return __( '<p>The password you entered does not meet the requirements or is missing.</p>', 'personalize-login' );
-		case RegistrationController::INVALID_PASSWORD_VERIFICATION:
+		case BusinessRegistrationController::INVALID_PASSWORD_VERIFICATION:
             return __( '<p>Password verification failed. Make sure your passwords match.</p>', 'personalize-login' );
-        case RegistrationController::ERROR_EMAIL_EXISTS:
+        case BusinessRegistrationController::ERROR_EMAIL_EXISTS:
             return __( "<p>An account exists with that email address.</p>To reset password <a href='$resetPasswordLink'>click here</a>", 'personalize-login' );
-        case RegistrationController::CLOSED:
+        case BusinessRegistrationController::CLOSED:
             return __( '<p>Registering new users is currently not allowed.</p>', 'personalize-login' );
     }
 } 
 
 $pageData['firstname'] = null;
+$pageData['businessname'] = null;
 $pageData['lastname'] = null;
 $pageData['username'] = null;
 $pageData['email'] = null;
@@ -42,6 +38,7 @@ $pageData['error_message'] = null;
 if ( isset( $_REQUEST['register-error'] ) ) {
     $pageData['error_message'] = getErrorMessage( $_REQUEST["register-error"] );
     //populating form fields
+    $pageData['businessname'] = $_REQUEST["businessname"];
     $pageData['firstname'] = $_REQUEST["firstname"];
     $pageData['lastname'] = $_REQUEST["lastname"];
     $pageData['username'] = $_REQUEST["username"];
@@ -51,7 +48,6 @@ if ( isset( $_REQUEST['register-error'] ) ) {
 
 
 ?>
-<script src="https://js.stripe.com/v3/"></script>
 <div class="page-wrapper">
 <div class="container">
     <div class="row"> 
@@ -71,6 +67,14 @@ if ( isset( $_REQUEST['register-error'] ) ) {
                 <!--End any registration errors -->
                 <form action="<?php echo wp_registration_url(); ?>" method="post" id="registration-form">
                     
+                    <div class="form-row">
+                        <label for="businessname">
+                            Business Name
+                        </label>
+                        <div>
+                            <input type="text" name="businessname" id="businessname" value="<?php if($pageData['businessname'] !== null) echo $pageData['businessname'];?>"/>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <label for="firstname">
                             First Name
@@ -133,24 +137,10 @@ if ( isset( $_REQUEST['register-error'] ) ) {
                             <input type="password" name="verify-password" id="verify-password"/>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <label for="card-element">
-                            Credit or debit card
-                        </label>
-                        <div id="card-element">
-                            <!-- A Stripe Element will be inserted here. -->
-                        </div>
-                        <div class="secure">
-                            <i class="fas fa-lock"></i><p>This is secure</p>
-                        </div>
-                        <!-- Used to display Element errors. -->
-                        <div id="card-errors" role="alert"></div>
-                    </div>
                     <div id="register-text1">
                         <p>Click the "Sign Up!" button below to begin sharing!</p>
                     </div>
                     <button class="signup_button">Sign-up!</button>
-                    <input type="hidden" name="pmtToken" id="pmtToken" value="">
                     <div class="center_horizontal" id="formErrors"></div>
                 </form>
                 

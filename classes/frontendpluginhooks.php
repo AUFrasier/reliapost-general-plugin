@@ -7,7 +7,8 @@ class FrontEndPluginHooks
 	private static $title = null;
 	private static $ruleToTest = null;
 
-	const REGISTRATION = "registration";
+    const BRAND_REGISTRATION = "brandregistration";
+    const BUSINESS_REGISTRATION = "businessregistration";
 	const LOGIN = "login";
 	const FORGOT_PASSWORD = "forgotpassword";
 	const PROFILE = "myaccount";
@@ -46,20 +47,28 @@ class FrontEndPluginHooks
     static function onLoopReady() {
         if (LoginController::membershipRequired()) LoginController::requireLoggedInUser();
     }
+
+    static function getStripePublicKey() {
+        //localizing and enqueueing script here because Registration Page needs Stripe PK included for Stripe Element at #card-element in brand_registration.php
+        $script = 'reliapost_registration';
+        $fileUrl = Link::getURLForScript($script);
+        $fileVersion = static::getVersionForFile($script);
+        wp_enqueue_script($script, $fileUrl, null, $fileVersion, true);
+        $script_params = array(
+            'stripePk' => get_option(StripeHelper::STRIPE_PUBLIC_KEY)
+        );
+        wp_localize_script( $script, 'scriptParams', $script_params );
+    }
 	
 	private static function enqueueScripts($pageToDisplay)
 	{
 	    switch ($pageToDisplay) {
-            case self::REGISTRATION : {
-				//localizing and enqueueing script here because Registration Page needs Stripe PK included for Stripe Element at #card-element in registration_form.php
-                $script = 'reliapost_registration';
-				$fileUrl = Link::getURLForScript($script);
-				$fileVersion = static::getVersionForFile($script);
-				wp_enqueue_script($script, $fileUrl, null, $fileVersion, true);
-				$script_params = array(
-					'stripePk' => get_option(StripeHelper::STRIPE_PUBLIC_KEY)
-				);
-				wp_localize_script( $script, 'scriptParams', $script_params );
+            case self::BRAND_REGISTRATION : {
+				self::getStripePublicKey();
+                break;
+            }
+            case self::BUSINESS_REGISTRATION : {
+				self::getStripePublicKey();
                 break;
             }
             case self::LOGIN :{
@@ -91,7 +100,13 @@ class FrontEndPluginHooks
 
 	private static function enqueueStyles($pageToDisplay) {
 	    switch ($pageToDisplay) {
-            case self::REGISTRATION: {
+            case self::BRAND_REGISTRATION: {
+                wp_enqueue_style('reliapost_general', Link::getPathForCss("reliapost_general"), null, static::getVersionForCssFile("reliapost_general"));
+                wp_enqueue_style('reliapost_stripe', Link::getPathForCss("stripe_form3"), null, static::getVersionForCssFile("stripe_form3"));
+                wp_enqueue_style('reliapost_registration', Link::getPathForCss("reliapost_registration"), null, static::getVersionForCssFile("reliapost_registration"));
+                break;
+            }
+            case self::BUSINESS_REGISTRATION: {
                 wp_enqueue_style('reliapost_general', Link::getPathForCss("reliapost_general"), null, static::getVersionForCssFile("reliapost_general"));
                 wp_enqueue_style('reliapost_stripe', Link::getPathForCss("stripe_form3"), null, static::getVersionForCssFile("stripe_form3"));
                 wp_enqueue_style('reliapost_registration', Link::getPathForCss("reliapost_registration"), null, static::getVersionForCssFile("reliapost_registration"));

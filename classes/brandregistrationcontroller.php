@@ -1,17 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: personal
- * Date: 10/18/18
- * Time: 11:36 PM
- */
 
 namespace reliapost_registration;
 
 
-class RegistrationController
+class BrandRegistrationController
 {
     const FIRST_NAME_MISSING = "first_name_missing";
+    const INDUSTRYNAME_MISSING = "industryname_missing";
+    const BRANDNAME_MISSING = "brandname_missing";
     const LAST_NAME_MISSING = "last_name_missing";
     const USERNAME_MISSING = "username_missing";
     const ERROR_EMAIL_EXISTS = "email_exists";
@@ -22,7 +18,7 @@ class RegistrationController
     const CLOSED = "closed";
 
     static function getSlug() {
-        return "register";
+        return "new-brand-registration";
     }
 	
     static function subscribeUser($customerId, $planID) {
@@ -49,9 +45,8 @@ class RegistrationController
                 wp_redirect( home_url(self::getSlug() ) );
             }
             exit;
-        }
+        } 
     }
-
     /**
      * Adapted from https://code.tutsplus.com/tutorials/build-a-custom-wordpress-user-flow-part-2-new-user-registration--cms-23810
      * Handles the registration of a new user.
@@ -59,7 +54,7 @@ class RegistrationController
      * Used through the action hook "login_form_register" activated on wp-login.php
      * when accessed through the registration action.
      */
-    static function do_register_user() {
+    static function registerBrand() {
         if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
             Log::addEntry("do_register_user(): " . json_encode($_POST));
             $redirect_url = home_url(self::getSlug());
@@ -69,17 +64,24 @@ class RegistrationController
                 // Registration closed, display error
                 $redirect_url = add_query_arg( 'register-error', 'closed', $redirect_url );
             } else {
-                $email = $_POST["email"];
+                $industryname = sanitize_text_field($_POST["industryname"]);
+                $brandname = sanitize_text_field($_POST["brandname"]);
                 $username = sanitize_text_field($_POST["username"]);
                 $firstName = sanitize_text_field($_POST['firstname']);
                 $lastName = sanitize_text_field($_POST['lastname']);
-                $password = $_POST["password"];
-				$verifyEmail = sanitize_text_field($_POST['verify-email']);
+                $email = $_POST["email"];
+                $verifyEmail = sanitize_text_field($_POST['verify-email']);
+                $password = $_POST["password"]; 
                 $verifyPassword = sanitize_text_field($_POST['verify-password']);
                 // Token is created using Checkout or Elements!
                 // Get the payment token ID submitted by the form:
                 $token = $_POST['pmtToken'];
-                $planID = get_option(StripeController::RELIAPOST_PLAN_ID);
+                $planType = $_POST['plan-type'];
+                if ($planType == "standard") {
+                    $planID = get_option(StripeController::STANDARD_RELIAPOST_PLAN_ID);
+                } else {
+                    $planID = get_option(StripeController::ADVANCED_RELIAPOST_PLAN_ID);
+                }
                 $customer = $stripeController->createCustomer($email, $token, $firstName, $lastName, $username);
                 Log::addEntry("stripe customer created: " . json_encode($customer));
 
@@ -87,12 +89,18 @@ class RegistrationController
 
                     $subscription = self::subscribeUser($customer["id"], $planID);
                     Log::addEntry("customer subscribed on Stripe: " . json_encode($subscription));
-                    $user = User::register_user($email, $password, $username, $lastName, $firstName, $verifyEmail, $verifyPassword);
+                    $user = User::register_brand_user($email, $password, $username, $lastName, $firstName, $verifyEmail, $verifyPassword, $brandname, $industryname);
 
                     if ( User::is_error( $user ) ) {
                         // Parse errors into a string and append as parameter to redirect
                         $errorCode = "";
                         switch ($user) {
+                            case User::INDUSTRYNAME_MISSING:
+                                $errorCode = self::INDUSTRYNAME_MISSING;
+                                break;
+                            case User::BRANDNAME_MISSING:
+                                $errorCode = self::BRANDNAME_MISSING;
+                                break;
                             case User::FIRST_NAME_MISSING:
                                 $errorCode = self::FIRST_NAME_MISSING;
                                 break;
@@ -122,6 +130,7 @@ class RegistrationController
                         $errors = $user;
                         $redirect_url = add_query_arg( array(
                             'register-error' => $errorCode,
+                            'brandname' => $brandname,
                             'firstname' => $firstName,
                             'lastname' => $lastName,
                             'username' => $username,
@@ -133,7 +142,6 @@ class RegistrationController
 
                     } else {
                         // Success, redirect to login page.
-
                         $res = Billing::addTokenToUser($user->userId, $customer["id"]);
                         Log::addEntry("stripe details connected to customer in db: " . json_encode($res));
                         $redirect_url = home_url( LoginController::getSlug());
@@ -144,8 +152,6 @@ class RegistrationController
                     Log::addEntry("COULD NOT CREATE STRIPE CUSTOMER");
                     wp_die("COULD NOT CREATE STRIPE CUSTOMER", 400);
                 }
-
-                $result = User::register_user($email, $password, $username, $lastName, $firstName, $verifyEmail, $verifyPassword);
 
             }
 

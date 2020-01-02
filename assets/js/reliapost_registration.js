@@ -25,7 +25,7 @@ jQuery(document).ready(function(){
         } else {
             displayError.textContent = '';
         }
-    });
+    }); 
 
 
     // Create a token or display an error when the form is submitted.

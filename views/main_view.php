@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: christopherruddell
- * Date: 2/15/18
- * Time: 9:18 PM
- */
+
 namespace reliapost_registration;
 
 $user = wp_get_current_user()->data;

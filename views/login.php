@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: christopherruddell
- * Date: 2/15/18
- * Time: 9:18 PM
- */
+
 namespace reliapost_registration;
 
 $attributes['lost_password_sent'] = isset( $_REQUEST['checkemail'] ) && $_REQUEST['checkemail'] == 'confirm';
@@ -79,8 +74,12 @@ if ( isset( $_REQUEST['errors'] ) ) {
                     </form>
                 </div>   
                 <div id="whitebg2" id="registerLink" class="center_horizontal">
-                    <p class="register_label">Need an account?</p>
-                    <button class="register_button"><a href="/register" style="color: white !important;">Register</a></button>
+                    <p class="register_label">New Brand?</p>
+                    <button class="register_button"><a href="/new-brand-registration" style="color: white !important;">Register</a></button>
+                </div>
+                <div id="whitebg2" id="registerLink" class="center_horizontal">
+                    <p class="register_label">New Business?</p>
+                    <button class="register_button"><a href="/new-business-registration" style="color: white !important;">Register</a></button>
                 </div>
             </div>
         </div>

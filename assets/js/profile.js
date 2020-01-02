@@ -1,54 +1,5 @@
 var $ = jQuery;
 
-function postDataToBackend(data, callbackFunction = null) {
-    var url = "/wp-admin/admin-ajax.php";
-
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": url,
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "cache-control": "no-cache"
-        },
-        "data": data
-    }
-
-    jQuery.ajax(settings)
-        .done(function(data, statusText, xhr) {
-
-            var status = xhr.status;
-            if (status==200) {
-                console.log("success posting to " + url);
-                console.log(data);
-                if (callbackFunction!=null) callbackFunction(JSON.parse(data));
-            }
-            else {
-                console.log("Error (" + status + "): " + statusText);
-                alert("Error posting: " + statusText);
-            }
-        })
-        .error(function(xhr, statusText, data) {
-            console.log("data:");
-            console.log(data);
-            console.log("statusText:");
-            console.log(statusText);
-            console.log("xhr:");
-            console.log(xhr);
-            var status = xhr.status;
-            if (status==200) {
-                console.log("success posting to " + url);
-                console.log(statusText);
-                if (callbackFunction!=null) callbackFunction(statusText);
-            }
-            else {
-                console.log("Error (" + status + "): " + statusText);
-                alert("Error posting: " + statusText);
-            }
-        });
-}
-
 function addCategory() {
     $("#emptyView").html("");
     var value = $("#categorySelector").val();

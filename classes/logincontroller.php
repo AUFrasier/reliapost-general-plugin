@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: personal
- * Date: 10/28/18
- * Time: 6:46 AM
- */
 
 namespace reliapost_registration;
 
@@ -515,7 +509,7 @@ class LoginController
         
         // re-subscribe user
         $planID = get_option(StripeController::RELIAPOST_PLAN_ID);
-        $subscription = RegistrationController::subscribeUser($customer["id"], $planID);
+        $subscription = BrandRegistrationController::subscribeUser($customer["id"], $planID);
         //Log::addEntry("customer subscribed on Stripe: " . json_encode($subscription));
 
         if (true) return self::onError("success");

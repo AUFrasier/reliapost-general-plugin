@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: christopherruddell
- * Date: 2/15/18
- * Time: 9:12 PM
- */
+
 
 namespace reliapost_registration\Pages;
 
@@ -13,7 +8,7 @@ use reliapost_registration\StripeController;
 use reliapost_registration\View;
 use reliapost_registration\StripeHelper;
 
-class Registration extends PageAbstract
+class BrandRegistration extends PageAbstract
 {
 
     public function displayPage()
@@ -33,7 +28,7 @@ class Registration extends PageAbstract
         $pageData["planId"] = $plan["id"];
 
 
-        View::displayPage('registration_form', $pageData);
+        View::displayPage('brand_registration', $pageData);
         //echo "<script src='" . plugins_url("../../assets/js/stripe_main.js?i=" . time(), __FILE__) . "' data-rel-js></script>\n";
     }
 

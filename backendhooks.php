@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: personal
- * Date: 10/18/18
- * Time: 11:52 PM
- */
-
-
 
 class BackendHooks {
     const PREFIX_NOPRIV = "wp_ajax_nopriv_";
     const PREFIX_USER = "wp_ajax_";
 
-    const REGISTRATION_CONTROLLER = "\\reliapost_registration\\RegistrationController";
+    const BRAND_REGISTRATION_CONTROLLER = "\\reliapost_registration\\BrandRegistrationController";
+    const BUSINESS_REGISTRATION_CONTROLLER = "\\reliapost_registration\\BusinessRegistrationController";
 	const DATABASE_CONTROLLER = "\\reliapost_registration\\DatabaseController";
     const LOGIN_CONTROLLER = "\\reliapost_registration\\LoginController";
     const STRIPE_HELPER = "\\reliapost_registration\\StripeHelper";
@@ -25,7 +18,6 @@ class BackendHooks {
         //hide the admin toolbar
         add_filter("show_admin_bar", "__return_false");
 
-        $this->addHook("reliapost_newUser", self::REGISTRATION_CONTROLLER, "registerUser");
         $this->addHook("reliapost_createProduct", self::STRIPE_HELPER, "createProduct", true);
         $this->addHook("reliapost_createSubscription", self::STRIPE_HELPER, "createSubscription", true);
         $this->addHook("reliapost_login", self::LOGIN_CONTROLLER, "login");
@@ -43,14 +35,13 @@ class BackendHooks {
         $this->addHook('reliapost_reactivate_subscription', self::LOGIN_CONTROLLER, "reactivateAccount", false);
         $this->addHook('reliapost_renew_subscription', self::LOGIN_CONTROLLER, "renewAccount", false);
 
-        //activation and deactivation hooks
-        register_activation_hook( RELIAPOST_REGISTRATION_FILE, 'reliapost_onActivation' );
-        register_deactivation_hook( RELIAPOST_REGISTRATION_FILE, 'reliapost_onDeactivation');
         add_action('admin_menu', 'createAdminMenu');
 
         //override default Wordpress login/registration hooks
-        add_action( 'login_form_register', array( self::REGISTRATION_CONTROLLER, 'redirect_to_custom_register' ) );
-        add_action( 'login_form_register', array( self::REGISTRATION_CONTROLLER, 'do_register_user' ) );
+        add_action( 'login_form_register', array( self::BRAND_REGISTRATION_CONTROLLER, 'redirect_to_custom_register' ) );
+        add_action( 'login_form_register', array( self::BUSINESS_REGISTRATION_CONTROLLER, 'redirect_to_custom_register' ) );
+        add_action( 'login_form_register', self::BRAND_REGISTRATION_CONTROLLER, "registerBrand");
+        add_action( 'login_form_register', self::BUSINESS_REGISTRATION_CONTROLLER, "registerBusiness");
         add_action( 'login_form_login', array( self::LOGIN_CONTROLLER, 'redirect_to_custom_login' ) );
         add_filter( 'login_redirect', array( self::LOGIN_CONTROLLER, 'redirect_after_login' ), 10, 3 );
         add_filter( 'authenticate', array( self::LOGIN_CONTROLLER, 'maybe_redirect_at_authenticate' ), 101, 3 );
@@ -62,13 +53,11 @@ class BackendHooks {
         add_action( 'login_form_resetpass', array( self::LOGIN_CONTROLLER, 'redirect_to_custom_password_reset' ) );
         add_action( 'login_form_rp', array( self::LOGIN_CONTROLLER, 'do_password_reset' ) );
         add_action( 'login_form_resetpass', array( self::LOGIN_CONTROLLER, 'do_password_reset' ) );
-        add_action('check_admin_referer', array(self::LOGIN_CONTROLLER, 'logout_without_confirm'), 10, 2);
+        add_action( 'check_admin_referer', array(self::LOGIN_CONTROLLER, 'logout_without_confirm'), 10, 2);
 
         //add option to the quick edit for pages
         add_action( 'add_meta_boxes', array(self::LOGIN_CONTROLLER, 'addMetaBoxes') );
         add_action('save_post', array(self::LOGIN_CONTROLLER, 'save_postdata'));
-
-
     }
 
     function addHook($key, $class, $functionName, $adminRequired = false) {
@@ -83,14 +72,4 @@ class BackendHooks {
 function createAdminMenu() {
     add_menu_page( 'Stripe', 'Stripe', 'manage_options', 'reliapost_admin_stripe', array("\\reliapost_registration\\AdminController", "display_page_stripe") );
     add_submenu_page( 'reliapost_admin_stripe', 'Plans', 'Plans', 'manage_options', 'reliapost_admin_stripe_plans', array("\\reliapost_registration\\AdminController", "display_page_stripe_plans") );
-}
-
-function reliapost_onActivation() {
-    $dbController = new \reliapost_registration\DatabaseController();
-    $dbController->onActivation();
-}
-
-function reliapost_onDeactivation() {
-    $dbController = new \reliapost_registration\DatabaseController();
-    $dbController->onDeactivation();
 }

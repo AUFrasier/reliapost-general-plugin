@@ -15,12 +15,13 @@ class StripeController
 {
     const OPTION_PRODUCT_ID = "reliapoost_product_id";
     const OPTION_PRODUCT_NAME = "reliapost_product_name";
-    const RELIAPOST_PLAN_ID = "subscription_plan_id";
+    const STANDARD_RELIAPOST_PLAN_ID = "standard_subscription_plan_id";
+    const ADVANCED_RELIAPOST_PLAN_ID = "advanced_subscription_plan_id";
 
     /**
      * StripeController constructor.
      */
-    public function __construct()
+    public function __construct() 
     {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys

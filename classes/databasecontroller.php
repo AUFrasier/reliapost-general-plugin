@@ -49,7 +49,6 @@ class DatabaseController
     public $tableSubscriptions;
     public $tableUserCategories;
 
-
     /**
      * DatabaseController constructor.
      */
@@ -77,108 +76,7 @@ class DatabaseController
         $wpdb = $this->getWpdb();
         $sql = "SHOW TABLES";
         $tables = $wpdb->get_results($sql);
-        return $tables;
-    }
-
-
-    public function onActivation() {
-        global $wpdb;
-        $schemaUsers = [
-            self::USERS_USER_ID => "VARCHAR(256) NOT NULL",
-            self::USERS_EMAIL => "VARCHAR(128) NOT NULL",
-            self::USERS_PASSWORD => "VARCHAR(128) NOT NULL",
-            self::USERS_UPDATED_AT => "DATETIME"
-        ];
-        $this->createOrUpdateTable($schemaUsers, $this->tableUsers, self::USERS_USER_ID);
-
-        $schemaBilling = [
-            self::BILLING_USER_ID => "VARCHAR(128) NOT NULL",
-            self::BILLING_STRIPE_TOKEN => "VARCHAR(128) NOT NULL",
-            self::BILLING_UPDATED_AT => "DATETIME"
-        ];
-        $this->createOrUpdateTable($schemaBilling, $this->tableBilling, self::BILLING_USER_ID);
-
-        $schemaSubscriptions = [
-            self::SUBSCRIPTIONS_STRIPE_ID => "VARCHAR(128) NOT NULL",
-            self::SUBSCRIPTIONS_ENABLED => "BOOLEAN DEFAULT TRUE",
-            self::SUBSCRIPTIONS_IS_USER_PLAN => "BOOLEAN DEFAULT TRUE"
-        ];
-        $this->createOrUpdateTable($schemaSubscriptions, $this->tableSubscriptions, self::SUBSCRIPTIONS_STRIPE_ID);
-
-        $schemaUserCategories = [
-            self::USERCATEGORIES_USER_ID => "VARCHAR(128) NOT NULL",
-            self::USERCATEGORIES_SLUG => "VARCHAR(128) NOT NULL",
-            self::BILLING_UPDATED_AT => "DATETIME"
-        ];
-        $this->createOrUpdateTable($schemaUserCategories, $this->tableUserCategories, [self::USERCATEGORIES_USER_ID, self::USERCATEGORIES_SLUG]);
-
-    }
-
-    private function tableExists($tableName) {
-        $sql = "SHOW TABLES LIKE '" . $tableName . "';";
-        global $wpdb;
-        $rows =  $wpdb->query($sql);
-        return $rows>0;
-    }
-
-    public function createOrUpdateTable($schema, $tableName, $primaryKey = "id") {
-        global $wpdb;
-
-        if ($this->tableExists($tableName)) {
-            //update
-            foreach ($schema as $col=>$type) {
-
-                $sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $tableName . "' AND column_name = '$col'";
-
-                $bool = $wpdb->query($sql);
-                if ($bool===false || $bool==0) {
-                    $sql = "ALTER TABLE " . $tableName . " ADD COLUMN " . $col . " " . $type;
-                    $wpdb->query($sql);
-
-                }
-                else {
-                    $sql = "ALTER TABLE " . $tableName . " MODIFY COLUMN " . $col . " " . $type;
-                    $wpdb->query($sql);
-
-                }
-            }
-        }
-        else {
-            //create
-            $sql = "CREATE TABLE IF NOT EXISTS " . $tableName . " ("
-                . "`id` mediumint(9) NOT NULL AUTO_INCREMENT,";
-            foreach ($schema as $col=>$type) {
-                $sql .= $col . " " . $type . ",";
-            }
-            if ($primaryKey!="id") {
-                $sql .= " KEY (`id`), ";
-            }
-            if (is_array($primaryKey)) {
-                $sql .= " PRIMARY KEY (";
-                $comma = "";
-                foreach ($primaryKey as $col) {
-                    $sql .= $comma . "`$col`";
-                    $comma = ",";
-                }
-                $sql .= ")";
-            }
-            else {
-                $sql .= " PRIMARY KEY (`$primaryKey`)";
-            }
-
-            $sql .= ");";
-            $bool = $wpdb->query($sql);
-            if (!$bool) {
-                $wpdb->print_error();
-                echo "failure\n";
-                echo $sql . "\n";
-                exit();
-            }
-        }
-    }
-
-    public function onDeactivation() {
-
+        return $tables; 
     }
 
     public function query($sql) {
